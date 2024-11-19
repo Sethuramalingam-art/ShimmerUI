@@ -3,16 +3,26 @@ import Meme from "./Meme";
 import Shimmer from "./Shimmer";
 
 const Body = () => {
-  const [memes, setMemes] = useState(null);
+  const [memes, setMemes] = useState([]);
+  const [shimmerLoader, setShimmerLoader] = useState(false);
   useEffect(() => {
     fetchMeme();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleScroll = () => {
+    if (window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+      fetchMeme();
+    }
+  };
+
   const fetchMeme = async () => {
-    const data = await fetch("https://meme-api.com/gimme/20");
+    setShimmerLoader(true);
+    const data = await fetch("https://meme-api.com/gimme/10");
     const resData = await data.json();
-    setMemes(resData.memes);
-    console.log(memes);
+    setShimmerLoader(false);
+    setMemes((memes) => [...memes, ...resData.memes]);
   };
   return (
     <div
@@ -21,21 +31,20 @@ const Body = () => {
         flexWrap: "wrap",
         alignItems: "center",
         justifyContent: "space-between",
+        overflowY: "scroll",
+        flexDirection: "column",
       }}
     >
-      {!memes ? (
-        <Shimmer />
-      ) : (
-        memes.map((meme, i) => {
-          return (
-            <>
-              <div key={i}>
-                <Meme key={i} data={meme} />
-              </div>
-            </>
-          );
-        })
-      )}
+      {memes.map((meme, i) => {
+        return (
+          <>
+            <div key={i}>
+              <Meme key={i} data={meme} />
+            </div>
+          </>
+        );
+      })}{" "}
+      {shimmerLoader && <Shimmer />}
     </div>
   );
 };
