@@ -36,3 +36,38 @@
     transform: rotate(360deg);
   }
 }
+
+.stepper-container {
+  position: relative;
+} 
+
+.progress-line {
+  position: absolute;
+  height: 2px;
+  background: grey;
+  top: 50%;
+  left:0;
+  z-index:-1;
+  transition: all 0.25s ease;
+}
+
+.steps-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.steps {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: gray;
+}
+
+.steps.active {
+  background-color: antiquewhite;
+}
