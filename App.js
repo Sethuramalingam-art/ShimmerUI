@@ -5,6 +5,7 @@ import Login from "./Login";
 import Details from "./Details";
 import ProtectedRoute from "./ProtectedRoute";
 import Accordian from "./Accordian";
+import Stepper from "./Stepper";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <a href="/Login">Login</a>
           <a href="/Details">Details</a>
           <a href="/Accordian">Accordian</a>
+          <a href="/Stepper">Stepper</a>
         </nav>
       </header>
       <BrowserRouter>
@@ -23,6 +25,7 @@ function App() {
           <Route path="/" element={<Body />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Accordian" element={<Accordian />} />
+          <Route path="/stepper" element={<Stepper />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/Details" element={<Details />} />
           </Route>
