@@ -13,6 +13,7 @@ const Dropdown = () => {
 
   const handleSelect = (e) => {
     console.log(e.target.value);
+    setSelCountry(e.target.value);
     setSelStateValue(state[e.target.value]);
   };
   return (
